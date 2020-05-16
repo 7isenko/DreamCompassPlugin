@@ -1,0 +1,9 @@
+name: Dreamcompass
+version: ${project.version}
+main: me.prostedeni.goodcraft.dreamcompass.Dreamcompass
+api-version: 1.13
+authors: [prosteDeni]
+description: Gives you compass always pointing to specified player
+commands:
+  compass:
+    description: gives you a compass
