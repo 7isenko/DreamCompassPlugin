@@ -1,0 +1,7 @@
+#By default, when clicked, the compass only points to specified player
+#and shows his Y coordinate. If you wanna change that so that compass
+#also shows all coordinates and world player is in, change "true" to "false"
+DefaultMode: true
+EnderChance: 0
+MinimumDistance: 10
+MaximumDistance: 50
