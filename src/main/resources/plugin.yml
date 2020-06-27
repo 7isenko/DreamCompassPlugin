@@ -7,3 +7,8 @@ commands:
   compass:
     description: Gives you compass always pointing to specified player
     usage: /compass <nickname>
+    permission: dreamcompass.command
+permissions:
+  dreamcompass.command:
+    description: permission to use the command
+    default: true
