@@ -1,5 +1,5 @@
 name: DreamCompass
-version: "2.0"
+version: "3.0"
 main: io.github._7isenko.dreamcompass.DreamCompass
 authors: [prosteDeni, 7isenko]
 description: Gives you compass always pointing to specified player

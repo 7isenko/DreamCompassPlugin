@@ -9,20 +9,25 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class CompassInteractListener implements Listener {
 
     @EventHandler
     public void onEvent(PlayerInteractEvent e) {
-        if (DreamCompass.hunters.containsKey(e.getPlayer()) && (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPASS || e.getPlayer().getInventory().getItemInOffHand().getType() == Material.COMPASS)) {
-            Player target = Bukkit.getPlayer(DreamCompass.hunters.get(e.getPlayer()));
-            if (target != null) {
-                e.getPlayer().setCompassTarget(target.getLocation());
-                e.getPlayer().sendMessage(ChatColor.GOLD + "Compass is pointing to " + DreamCompass.hunters.get(e.getPlayer()));
-                e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.translateAlternateColorCodes('&', "&3&lY: &b" + target.getLocation().getBlockY())));
-            } else {
-                e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lPlayer &4&l" + DreamCompass.hunters.get(e.getPlayer()) + "&c&l is offline"));
-            }
+        if (DreamCompass.hunters.containsKey(e.getPlayer())) {
+            Player player = e.getPlayer();
+            Player target;
+            ItemStack compass;
+            if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPASS) {
+                target = Bukkit.getPlayer(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
+                compass = player.getInventory().getItemInMainHand();
+            } else if (e.getPlayer().getInventory().getItemInOffHand().getType() == Material.COMPASS) {
+                target = Bukkit.getPlayer(player.getInventory().getItemInOffHand().getItemMeta().getDisplayName());
+                compass = player.getInventory().getItemInOffHand();
+            } else return;
+            CompassHelper.setTarget(compass, target);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.translateAlternateColorCodes('&', "&3&bCompass is pointing to " + compass.getItemMeta().getDisplayName())));
         }
     }
 }

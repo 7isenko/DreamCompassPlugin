@@ -10,8 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Objects;
+import org.bukkit.inventory.meta.CompassMeta;
 
 public class CompassCommand implements CommandExecutor {
     @Override
@@ -30,10 +29,14 @@ public class CompassCommand implements CommandExecutor {
             Player target = Bukkit.getPlayer(name);
             if (target != null) {
                 DreamCompass.hunters.put(player, name);
-                player.getInventory().addItem(new ItemStack(Material.COMPASS));
-                player.setCompassTarget(target.getLocation());
+                ItemStack compass = new ItemStack(Material.COMPASS);
+                CompassMeta meta = (CompassMeta) compass.getItemMeta();
+                meta.setLodestone(target.getLocation());
+                meta.setLodestoneTracked(false);
+                meta.setDisplayName(target.getName());
+                compass.setItemMeta(meta);
+                player.getInventory().addItem(compass);
                 sender.sendMessage(ChatColor.GOLD + "Compass is pointing to " + name);
-                Objects.requireNonNull(player.getPlayer()).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.translateAlternateColorCodes('&', "&3&lY: &b" + target.getLocation().getBlockY())));
                 return true;
             }
             sendMessageWithColors(sender, "&c&lPlayer &4&l" + name + "&c&l is offline");
