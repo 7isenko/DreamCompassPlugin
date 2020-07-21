@@ -1,15 +1,13 @@
 package io.github._7isenko.dreamcompass;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
 import java.util.Objects;
 
-public final class DreamCompass extends JavaPlugin implements Listener {
-    public static HashMap<Player, String> hunters = new HashMap<>();
+@SuppressWarnings("unused")
+public final class DreamCompass extends JavaPlugin {
 
     @Override
     public void onEnable() {

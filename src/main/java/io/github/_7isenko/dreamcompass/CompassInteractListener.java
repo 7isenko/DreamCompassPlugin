@@ -12,22 +12,33 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class CompassInteractListener implements Listener {
-
     @EventHandler
+    @SuppressWarnings({"ConstantConditions", "unused"})
     public void onEvent(PlayerInteractEvent e) {
-        if (DreamCompass.hunters.containsKey(e.getPlayer())) {
-            Player player = e.getPlayer();
-            Player target;
-            ItemStack compass;
-            if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPASS) {
-                target = Bukkit.getPlayer(player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
-                compass = player.getInventory().getItemInMainHand();
-            } else if (e.getPlayer().getInventory().getItemInOffHand().getType() == Material.COMPASS) {
-                target = Bukkit.getPlayer(player.getInventory().getItemInOffHand().getItemMeta().getDisplayName());
-                compass = player.getInventory().getItemInOffHand();
-            } else return;
+        Player player = e.getPlayer();
+        ItemStack compass = getCompass(player);
+        if (compass == null) return;
+        if (!compass.getItemMeta().hasDisplayName()) return;
+        String name = compass.getItemMeta().getDisplayName();
+        Player target = Bukkit.getPlayer(name);
+        if (target != null) {
             CompassHelper.setTarget(compass, target);
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.translateAlternateColorCodes('&', "&3&bCompass is pointing to " + compass.getItemMeta().getDisplayName())));
+            sendToActionBar(player, "&3&bCompass is pointing to " + name);
+        } else sendToActionBar(player, "&3&b" + name + " is offline");
+
+    }
+
+    private ItemStack getCompass(Player player) {
+        ItemStack compass = null;
+        if (player.getInventory().getItemInMainHand().getType() == Material.COMPASS) {
+            compass = player.getInventory().getItemInMainHand();
+        } else if (player.getInventory().getItemInOffHand().getType() == Material.COMPASS) {
+            compass = player.getInventory().getItemInOffHand();
         }
+        return compass;
+    }
+
+    private void sendToActionBar(Player player, String message) {
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.translateAlternateColorCodes('&', message)));
     }
 }
