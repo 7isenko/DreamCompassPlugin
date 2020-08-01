@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class CompassInteractListener implements Listener {
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     @SuppressWarnings({"ConstantConditions", "unused"})
     public void onEvent(PlayerInteractEvent e) {
         Player player = e.getPlayer();

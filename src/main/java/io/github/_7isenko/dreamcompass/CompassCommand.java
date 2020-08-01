@@ -32,7 +32,7 @@ public class CompassCommand implements CommandExecutor {
             meta.setLodestone(target.getLocation());
             sender.sendMessage(ChatColor.GOLD + "New compass is pointing to " + name);
         } else
-            sender.sendMessage(ChatColor.GOLD + "New compass is pointing to " + name + ", but this player is offline");
+            sender.sendMessage(ChatColor.GOLD + "New compass will point to " + name + " once this player is online");
         compass.setItemMeta(meta);
         player.getInventory().addItem(compass);
         return true;
