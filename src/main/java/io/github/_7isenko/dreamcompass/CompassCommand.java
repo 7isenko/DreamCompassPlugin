@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CompassMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class CompassCommand implements CommandExecutor {
     @Override
@@ -25,7 +26,7 @@ public class CompassCommand implements CommandExecutor {
         Player target = Bukkit.getPlayer(name);
 
         ItemStack compass = new ItemStack(Material.COMPASS);
-        CompassMeta meta = (CompassMeta) compass.getItemMeta();
+        ItemMeta meta = compass.getItemMeta();
         meta.setDisplayName(name);
         compass.setItemMeta(meta);
         if (target != null) {

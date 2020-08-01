@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,10 +17,9 @@ public final class DreamCompass extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        System.out.println(Bukkit.getServer().getBukkitVersion());
         version = parseVersion(Bukkit.getServer().getBukkitVersion());
 
-        if (version >= 1.16)
+        if (version >= 1.16f)
             helper = new CompassHelper_v1_16();
         else helper = new CompassHelper_v1_9();
 
