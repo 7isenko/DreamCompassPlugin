@@ -8,6 +8,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("unused")
 public final class DreamCompass extends JavaPlugin {
@@ -16,7 +18,8 @@ public final class DreamCompass extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        version = new Scanner(Bukkit.getServer().getBukkitVersion()).nextFloat();
+        System.out.println(Bukkit.getServer().getBukkitVersion());
+        version = parseVersion(Bukkit.getServer().getBukkitVersion());
 
         if (version >= 1.16)
             helper = new CompassHelper_v1_16();
@@ -29,5 +32,12 @@ public final class DreamCompass extends JavaPlugin {
     @Override
     public void onDisable() {
         // nothing
+    }
+
+    private float parseVersion(String version) {
+        Pattern pattern = Pattern.compile("([0-9]*[.])?[0-9]+");
+        Matcher matcher = pattern.matcher(version);
+        matcher.find();
+        return Float.parseFloat(matcher.group());
     }
 }
