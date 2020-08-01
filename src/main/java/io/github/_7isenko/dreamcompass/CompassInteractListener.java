@@ -1,5 +1,6 @@
 package io.github._7isenko.dreamcompass;
 
+import io.github._7isenko.dreamcompass.compasshelpers.CompassHelper_v1_16;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -22,7 +23,7 @@ public class CompassInteractListener implements Listener {
         String name = compass.getItemMeta().getDisplayName();
         Player target = Bukkit.getPlayer(name);
         if (target != null) {
-            CompassHelper.setTarget(compass, target);
+            DreamCompass.helper.setTarget(player, compass, target);
             sendToActionBar(player, "&3&bCompass is pointing to " + name);
         } else sendToActionBar(player, "&3&b" + name + " is offline");
 

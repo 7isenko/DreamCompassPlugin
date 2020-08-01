@@ -27,13 +27,13 @@ public class CompassCommand implements CommandExecutor {
         ItemStack compass = new ItemStack(Material.COMPASS);
         CompassMeta meta = (CompassMeta) compass.getItemMeta();
         meta.setDisplayName(name);
+        compass.setItemMeta(meta);
         if (target != null) {
-            meta.setLodestoneTracked(false);
-            meta.setLodestone(target.getLocation());
+            DreamCompass.helper.setTarget(player, compass, target);
             sender.sendMessage(ChatColor.GOLD + "New compass is pointing to " + name);
         } else
             sender.sendMessage(ChatColor.GOLD + "New compass will point to " + name + " once this player is online");
-        compass.setItemMeta(meta);
+
         player.getInventory().addItem(compass);
         return true;
     }
