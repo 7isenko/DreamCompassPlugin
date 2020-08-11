@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 public class CompassInteractListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     @SuppressWarnings({"ConstantConditions", "unused"})
-    public void onEvent(PlayerInteractEvent e) {
+    public void onPlayerClicks(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         ItemStack compass = getCompass(player);
         if (compass == null) return;
